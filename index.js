@@ -1,56 +1,45 @@
-var tab_znakow = new Array("Ą","ą", "Ę","ę", "Ł", "ł", "Ź", "ź", "Ż", "ż", "Ć", "ć", "Ś", "ś", "Ń", "ń", "Ó", "ó");
+class StringValidator {
+    doContainPolishLetters(string) {
+        const regex = /[ąćęłńóśźż]+/i;
 
-function polska_litera(litera) {
-    var NO = 0;
-    var OK = 1;
+        return regex.exec(string) !== null;
+    };
 
-    var tab_dl = tab_znakow.length;
+    doContainRegularLetters(string) {
+        const regex = /[a-zA-Z]+/;
 
-    for(j = 0; j <= tab_dl; j++) {
-        if(litera == tab_znakow[j] ) {
-            return OK;
-        }
+        return regex.exec(string) !== null;
+    };
+
+    doContainNumbers(string) {
+        const regex = /\d+/;
+
+        return regex.exec(string) !== null;
+    };
+
+    doContainNonWordCharacters(string) {
+        const regex = /[^\w\dąćęłńóśźż]+/;
+
+        return regex.exec(string) !== null;
+    };
+
+    doContainOnlyNumbers(string) {
+        return this.doContainNumbers(string)
+            && !this.doContainPolishLetters(string)
+            && !this.doContainRegularLetters(string)
+            && !this.doContainNonWordCharacters(string);
     }
 
-    return NO;
+    isPolishWordWithOptionalNumbers(string) {
+        return !this.doContainOnlyNumbers(string)
+            && !this.doContainNonWordCharacters(string)
+            && (this.doContainRegularLetters(string) || this.doContainPolishLetters(string));
+    }
 }
 
-function tylko_litery_i_cyfry(wyraz) {
-    var OK = 1
-    var NO = 0
+const stringValidator = new StringValidator();
 
-    wyraz = wyraz.toUpperCase();
-
-    var dlugosc = wyraz.length;
-
-    for (i = 0; i < dlugosc; i++) {
-        if (wyraz.charAt(i) < "A" && wyraz.charAt(i) != "-" && wyraz.charAt(i) != " " && wyraz.charAt(i) != "." && wyraz.charAt(i) != "&" && wyraz.charAt(i) != "_" && wyraz.charAt(i) != "0" && wyraz.charAt(i) != "1" && wyraz.charAt(i) != "2" && wyraz.charAt(i) != "3" && wyraz.charAt(i) != "4" && wyraz.charAt(i) != "4" && wyraz.charAt(i) != "5" && wyraz.charAt(i) != "7" && wyraz.charAt(i) != "8" && wyraz.charAt(i) != "9") {
-            if (polska_litera(wyraz.charAt(i)) == 0)
-                return NO;
-        }
-        if (wyraz.charAt(i) > "Z" && wyraz.charAt(i) != "-" && wyraz.charAt(i) != " " && wyraz.charAt(i) != "." && wyraz.charAt(i) != "&" && wyraz.charAt(i) != "_" && wyraz.charAt(i) != "0" && wyraz.charAt(i) != "1" && wyraz.charAt(i) != "2" && wyraz.charAt(i) != "3" && wyraz.charAt(i) != "4" && wyraz.charAt(i) != "4" && wyraz.charAt(i) != "5" && wyraz.charAt(i) != "7" && wyraz.charAt(i) != "8" && wyraz.charAt(i) != "9") {
-
-            if (wyraz.charCodeAt(i) > 188)
-                continue;
-            else {
-                if (polska_litera(wyraz.charAt(i)) == 0)
-                    return NO;
-                else
-                    continue;
-            }
-        }
-    }
-    var licznik = 0;
-    for (i = 0; i < dlugosc; i++) {
-        if (wyraz.charAt(i) == "-" || wyraz.charAt(i) == " " || wyraz.charAt(i) == "." || wyraz.charAt(i) == "&" || wyraz.charAt(i) == "_") {
-            licznik++;
-        }
-    }
-    if (dlugosc > 0)
-        if (licznik == dlugosc) {
-            return NO;
-        }
-    return OK;
-}
-
-console.log(tylko_litery_i_cyfry('123ą'));
+console.log('Gżegżółka123 ' + stringValidator.isPolishWordWithOptionalNumbers('Gżegżółka123'));
+console.log('Gżegżółka ' + stringValidator.isPolishWordWithOptionalNumbers('Gżegżółka'));
+console.log('123 ' + stringValidator.isPolishWordWithOptionalNumbers('123'));
+console.log('Zółć.) ' + stringValidator.isPolishWordWithOptionalNumbers('Zółć.)'));
