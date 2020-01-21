@@ -5,7 +5,8 @@
  * 4. Bardzo długie linie które nie mieszczą się w 120 kolumnach
  * 5. Kilka punktów wyjścia z programu
  * 6. Używanie niebezpiecznych porównań == zamiast ===
- * 7. Program nie działa jak powinien - zwraca 1(true) pomimo wpisania Gżegżółka123.-
+ * 7. Brak średników na końcu linii
+ * 8. Program nie działa jak powinien - zwraca 1(true) pomimo wpisania Gżegżółka123.-
  */
 
 var tab_znak = new Array("Ą","ą", "Ę","ę", "Ł", "ł", "Ź", "ź", "Ż", "ż", "Ć", "ć", "Ś", "ś", "Ń", "ń", "Ó", "ó");
