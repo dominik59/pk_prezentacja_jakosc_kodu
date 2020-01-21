@@ -39,7 +39,9 @@ class StringValidator {
 
 const stringValidator = new StringValidator();
 
-console.log('Gżegżółka123 ' + stringValidator.isPolishWordWithOptionalNumbers('Gżegżółka123'));
-console.log('Gżegżółka ' + stringValidator.isPolishWordWithOptionalNumbers('Gżegżółka'));
-console.log('123 ' + stringValidator.isPolishWordWithOptionalNumbers('123'));
-console.log('Zółć.) ' + stringValidator.isPolishWordWithOptionalNumbers('Zółć.)'));
+console.log('123ą  ' + stringValidator.isPolishWordWithOptionalNumbers('123ą'));
+console.log('Polska  ' + stringValidator.isPolishWordWithOptionalNumbers('Polska'));
+console.log('Polska123  ' + stringValidator.isPolishWordWithOptionalNumbers('Polska123'));
+console.log('Gżegżółka123  ' + stringValidator.isPolishWordWithOptionalNumbers('Gżegżółka123'));
+console.log('Gżegżółka123.-  ' + stringValidator.isPolishWordWithOptionalNumbers('Gżegżółka123.-'));
+console.log('Gżegżółka123.-"  ' + stringValidator.isPolishWordWithOptionalNumbers('Gżegżółka123.-"'));
